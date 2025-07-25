@@ -1,5 +1,8 @@
 ### AWS Certified Machine Learning Engineer (MLA-C01) EXAM NOTES - David Galera, July 2025
 
+- [Amazon Managed Service for Apache Flink](#amazon-managed-service-for-apache-flink)
+- [Bedrock](#bedrock)
+- [Redshift](#redshift)
 - [Glue](#glue)
 - [Glue DataBrew](#glue-databrew)
 - [Athena](#athena)
@@ -24,10 +27,12 @@
 - [SageMaker deployments](#sagemaker-deployments)
 - [SageMaker Feature store](#sagemaker-feature-store)
 - [SageMaker Studio](#sagemaker-studio)
+- [SageMaker Canvas](#sagemaker-canvas)
 - [Amazon Managed Workflows for Apache Airflow](#amazon-managed-workflows-for-apache-airflow)
 - [AWS Step functions](#aws-step-functions)
 - [LakeFormation](#lakeformation)
 - [Comprehend](#comprehend)
+- [Macie](#macie)
 - [Kendra](#kendra)
 - [Augmented AI](#augmented-ai)
 - [SageMaker Ground Truth](#sagemaker-ground-truth)
@@ -37,6 +42,22 @@
 - [Kinesis Data Analytics](#kinesis-data-analytics)
 - [Data Formats](#data-formats)
 - [Extra](#extra)
+
+## Amazon Managed Service for Apache Flink
+
+Amazon Managed Service for Apache Flink is a fully managed service that efficiently processes real-time data streams with low latency. It allows for seamless integration with Kinesis Data Streams and supports minute-by-minute aggregation with minimal operational effort.
+
+!["Flink"](flink.jpg)
+
+## Bedrock
+
+!["Bedrock"](bedrock.jpg)
+
+## Redshift
+
+**Materialized views** require periodic refreshes and consume additional storage. They are static representations and do not dynamically adapt to changing data access needs, increasing operational complexity.
+
+**Dynamic data masking in Amazon Redshift** provides a seamless way to protect sensitive information, such as personally identifiable information (PII), while maintaining the integrity of the source data. This feature dynamically obscures sensitive columns at query time, ensuring that users without explicit permissions only see masked or obfuscated data. Unlike other approaches, dynamic data masking eliminates the need for duplicating or transforming datasets, reducing operational complexity and storage overhead.
 
 ## Glue
 
@@ -57,6 +78,9 @@ AWS Glue **does not provide ready-to-use Docker images** for popular ML framewor
 Visual data preparation tool that can be used to clean and normalize data, handle missing values, and remove outliers efficiently. It provides a user-friendly interface for data preparation tasks without the need for complex coding.
 
 !["Glue DataBrew"](databrew.jpg)
+
+DataBrew recipe `RESCALE_OUTLIERS_WITH_Z_SCORE`
+!["Zscore"](zscore.jpg)
 
 ## Athena
 
@@ -82,6 +106,7 @@ Importing models:
 - Bring custom **R models** to SageMaker: "bring your own container" option, just write the Dockerfile.
 - **SageMaker SDK** includes functions that you can use to **onboard existing Python models** that are written in supported frameworks.
 - You must register the models in the **SageMaker model registry** before you can import the models into **SageMaker Canvas**
+- SageMaker Processing jobs are designed for batch data processing rather than real-time aggregation
 
 By default, SageMaker training and deployed inference containers are **internet-enabled**. To prevent the training and inference containers from having access to the internet, you must enable **network isolation**.
 
@@ -90,6 +115,9 @@ By default, SageMaker training and deployed inference containers are **internet-
 Bring Your Own Container: `Script mode` enables you to write custom training and inference code while still utilizing common ML framework containers maintained by AWS.
 
 **SageMaker shadow testing** is the most efficient and reliable solution for evaluating a new model's performance using live data without impacting production systems. In shadow testing, a copy of the live traffic is routed to the new model for predictions while the production model continues to serve end users. This setup allows the company to compare predictions from both models in real time and assess the new model’s performance under actual usage conditions.
+
+**SageMaker domains**
+!["SageMaker domains"](domains.jpg)
 
 ## SageMaker models
 
@@ -105,6 +133,8 @@ SageMaker supports most of the popular ML frameworks through pre-built container
 Write a Python script that leverages the TensorFlow framework (following the Estimator API or a custom training loop). Upload this script to S3, and specify the TensorFlow framework version in SageMaker’s built-in container. SageMaker will then run your script in the managed environment, handling tasks like data loading and distributed training.
 
 ## SageMaker DataWrangler
+
+**Sagemaker Data Wrangler cannot import from Amazon DynamoDB**. You can use Amazon SageMaker Data Wrangler to import data only from the following data sources: **Amazon Simple Storage Service (Amazon S3), Amazon Athena, Amazon Redshift, and Snowflake**.
 
 !["SageMaker data wrangler"](data-wrangler.png)
 
@@ -152,11 +182,17 @@ SageMaker offers **built-in support** for various frameworks including TensorFlo
 ## SageMaker AI endpoints
 
 !["SageMaker endpoints"](endpoints.jpg)
+!["SageMaker endpoints 2"](endpoints2.jpg)
 
-- Asynchronous: You can receive responses for each request in **near real time** for **up to 60 minutes of processing time**. There is **no idle cost** to operate an asynchronous endpoint. Designed for use cases where requests can be processed in batches and are not time-sensitive.
-- Real-time: Receive responses for each request in real time, can process responses only for **up to 60 seconds**. Real-time endpoints have a **continuous cost**, even when idle. Requires provisioning and managing infrastructure to handle traffic spikes. You can enable **data capture** and integrate it with Clarify to perform bias detection.
-- Serverless: Receive responses for each request in **real time**, processing time up to 60 seconds. Scale independently. **Memory limit 6 GB and max 200 concurrent requests**. You **cannot configure a VPC** for the endpoint in this solution. Ideal for workloads that have idle periods between traffic spikes and can tolerate cold starts. **Provisioned concurrency** allows you to deploy models on serverless endpoints with predictable performance, and high scalability by keeping your endpoints warm, useful for predictable workloads.
-- Batch transform: Process large batches of data and suitable for processing jobs that do not require immediate results. Run inference when you do not need a persistent endpoint.
+- Asynchronous: This option is ideal for requests with large **payload sizes (up to 1GB)**, long **processing times (up to one hour)**, and **near real-time latency** requirements. Asynchronous Inference enables you to save on costs by **autoscaling the instance count to zero when there are no requests to process**, so you only pay when your endpoint is processing requests. Designed for use cases where requests can be processed in batches and are not time-sensitive.
+- Real-time: Receive responses for each request in real time, low latency or high throughput, can process responses only for **up to 60 seconds, payload size limit of 6 MB**. Real-time endpoints have a **continuous cost**, even when idle. Requires provisioning and managing infrastructure to handle traffic spikes. You can enable **data capture** and integrate it with Clarify to perform bias detection. The `min number of copies` specifies the minimum number of model copies that you want to have hosted on the endpoint at any given time.
+- Serverless: Ideal for workloads which have idle periods between traffic spurts and can tolerate **cold starts**. Receive responses for each request in **real time**. Scale independently. **It can support payload sizes up to 4 MB and processing times up to 60 seconds**. Setting `MaxConcurrency` to 1 ensures the endpoint can handle one request at a time. **Memory limit 6 GB and max 200 concurrent requests**. You **cannot configure a VPC** for the endpoint in this solution. Ideal for workloads that have idle periods between traffic spikes and can tolerate cold starts. **Provisioned concurrency** allows you to deploy models on serverless endpoints with predictable performance, and high scalability by keeping your endpoints warm, useful for predictable workloads.
+!["Serverless"](serverless.jpg)
+- Batch transform: Batch transform is a serverless, scalable, and cost-effective solution for **offline** predictions on large batches of data that is available upfront and you don’t need a persistent endpoint.
+
+Production variants:
+!["Production Variants"](variants.jpg)
+You can also have a **shadow variant** corresponding to a production variant behind an endpoint. A portion of the inference requests that goes to the production variant is copied to the shadow variant. The responses of the shadow variant are logged for comparison and not returned to the caller. This lets you test the performance of the shadow variant without exposing the caller to the response produced by the shadow variant.
 
 **Data Capture** is a feature of SageMaker endpoints. You can use Data Capture to record data that you can then use for **training, debugging, and monitoring**. Data Capture runs **asynchronously without impacting production traffic**. You can use the data captured to **retrain the model**.
 
@@ -182,6 +218,8 @@ You can then apply Fast File mode for the video files in the relevant Amazon S3 
 
 ## SageMaker Autopilot
 
+Amazon SageMaker Autopilot offers **low-code** machine learning capabilities by automating the process of building, training, and tuning models while providing transparency into the model-building steps. Users provide a dataset and define the target variable, and Autopilot automatically preprocesses data, selects algorithms, and optimizes hyperparameters
+
 It provides end-to-end automation for machine learning workflows, including data preprocessing, feature engineering, model training, and evaluation.
 
 It evaluates multiple candidate models to determine their predictive power with minimal manual effort.
@@ -199,12 +237,13 @@ You can quickly **deploy a pre-trained model and fine-tune it using your custom 
 ## SageMaker Pipelines
 
 !["SageMaker Pipelines"](sagemaker-pipelines.jpg)
+!["SageMaker Pipelines 2"](pipelines.jpg)
 
 Visualization as a DAG - Workflows are represented as a directed acyclic graph (DAG), making it easy to visualize dependencies.
 
 You can use **conditional steps in SageMaker Pipelines** to introduce a manual approval step before proceeding to production deployments.
 
-Callback steps are specifically designed to integrate external processes into the SageMaker pipeline workflow, e.g. by using a callback step, the SageMaker pipeline waits until the AWS Glue jobs complete.
+A callback step allows you to integrate any task or job outside Amazon SageMaker as a step in the model building pipeline. When a callback step is invoked, the current execution of a SageMaker model building pipeline will pause and wait for an external task or job to return a task token that was generated by SageMaker at the start of call back step execution. You can use the call back step to include processing jobs external to SageMaker such a Spark job running on an **Amazon EMR** cluster or an extract-transform-load (ETL) task in **AWS Glue** as part of the SageMaker model building pipeline.
 
 Seamless integration with **SageMaker ML Lineage Tracking** - Automatically tracks lineage information, including input datasets, model artifacts, and inference endpoints, ensuring compliance and auditability.
 
@@ -219,11 +258,27 @@ SageMaker Pipelines is a **workflow orchestration service** within SageMaker. Su
 - **Feature attribution** detection: use the `ModelExplainabilityMonitor` class to generate a **feature attribution baseline** and to deploy a monitoring mechanism that evaluates whether the feature attribution has occurred.
 - **Quality drift** detection: `ModelQualityMonitor` Model quality monitoring jobs monitor the performance of a model by comparing the predictions that the model makes with the actual Ground Truth labels that the model attempts to predict.
 
+Amazon SageMaker Model Monitor monitors the quality of Amazon SageMaker AI machine learning models in production. With Model Monitor, you can set up:
+
+- Continuous monitoring with a real-time endpoint.
+- Continuous monitoring with a batch transform job that runs regularly.
+- On-schedule monitoring for asynchronous batch transform jobs.
+
+Model Monitor provides the following types of monitoring:
+
+- Data quality - Monitor drift in data quality.
+- Model quality - Monitor drift in model quality metrics, such as accuracy.
+- Bias drift for models in production - Monitor bias in your model's predictions.
+- Feature attribution drift for models in production - Monitor drift in feature attribution.
+
+After you deploy a model into your production environment, use Amazon SageMaker Model Monitor to continuously monitor the quality of your machine learning models in real time. Amazon SageMaker Model Monitor enables you to set up an automated alert triggering system when there are deviations in the model quality, such as data drift and anomalies. Amazon CloudWatch Logs collects log files of monitoring the model status and notifies when the quality of your model hits certain thresholds that you preset
+
 ## SageMaker Clarify
 
-Not specifically designed for detecting model drift caused by changes in data distribution
+!["Clarify 2"](clarify2.jpg)
+**Not specifically designed for detecting model drift caused by changes in data distribution.**
 
-Designed to detect bias in datasets and model predictions. It can be used to analyze how changes in data distribution affect the model's predictions. You specify input features, such as gender or age, and SageMaker Clarify runs an analysis job to detect potential bias in those features
+Designed to detect bias in datasets and model predictions. It can be used to analyze how changes in data distribution affect the model's predictions. You specify input features, such as gender or age, and SageMaker Clarify runs an analysis job to detect potential bias in those features.
 
 Provides comprehensive tools for analyzing the impact of data distribution changes on model bias and fairness. Assess impact of data shift on model performance.
 
@@ -257,7 +312,13 @@ A **feature group** is a logical grouping of features, which is the foundation o
 
 SageMaker Studio Classic is excellent for ML workflows, it is not designed for large-scale ETL tasks, where AWS Glue provides a better solution.
 
-Amazon SageMaker Studio provides a built-in SQL extension. This extension allows data scientists to perform tasks such as sampling, exploratory analysis, and feature engineering directly within the JupyterLab notebooks.
+Amazon SageMaker Studio provides a **built-in SQL extension**. This extension allows data scientists to perform tasks such as sampling, exploratory analysis, and feature engineering directly within the JupyterLab notebooks.
+
+The integration between **Amazon EMR** and **Amazon SageMaker Studio** provides a scalable environment for large-scale data preparation for machine learning using open-source frameworks such as Apache Spark, Apache Hive, or Presto. Users can access Amazon EMR clusters and data directly from their Studio notebooks to perform their preparation tasks.
+
+## SageMaker Canvas
+
+Currently, you can only share models to Canvas (or view shared Canvas models) in Studio Classic. And the model must be registered in SageMaker Model Registry
 
 ## Amazon Managed Workflows for Apache Airflow
 
@@ -274,11 +335,19 @@ AWS Lake Formation is specifically designed for aggregating and managing large d
 - Large-scale ETL operations
 - Automate schema inference from on-premises databases
 
+By leveraging **Lake Formation tags**, the company can assign metadata tags to datasets, such as sports, movies, or documentaries, to categorize the data based on content type. These tags can then be used to define **tag-based permissions that are mapped to the IAM roles** of analysts. This approach ensures that analysts have access only to the data relevant to their assigned categories, such as sports-related data for sports analysts.
+
+!["Lakeformation"](lakeformation.jpg)
+
 ## Comprehend
 
 Amazon Comprehend provides the ability to **locate and redact PII entities in English or Spanish text documents**. You can easily process and anonymize personal information.
 
 !["Comprehend"](comprehend.jpg)
+
+## Macie
+
+!["Macie"](macie.jpg)
 
 ## Kendra
 
@@ -356,3 +425,5 @@ To get started with Kinesis Data Analytics, you create a Kinesis Data Analytics 
 - `AWS::SageMaker::Endpoint` is required to host the model, it depends on a model resource (AWS::SageMaker::Model). It cannot directly define the model or its configuration
 - `AWS::SageMaker::EndpointConfig` resource specifies how an endpoint is configured (e.g., instance type and count)
 - **Kinesis Data Firehose** provides configurable buffer intervals for data delivery to destinations. You can create a buffering hint by setting a value of zero for `IntervalInSeconds` parameter
+- **BIAS detection**: Check whether the model gives different demographic groups similar true positive rates, making it a key measure for detecting bias and ensuring fairness in sensitive applications like loan approvals. **Comparing feature distributions across demographic groups does not directly address potential bias in model predictions**.
+- Bias/Variance tradeoff: The bias versus variance trade-off in machine learning is about finding a balance between bias (error due to overly simplistic assumptions in the model, leading to underfitting) and variance (error due to the model being too sensitive to small fluctuations in the training data, leading to overfitting). The goal is to achieve a model that generalizes well to new data.
