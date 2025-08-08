@@ -1,52 +1,59 @@
-### AWS Certified Machine Learning Engineer (MLA-C01) EXAM NOTES - David Galera, July 2025
+# AWS Certified Machine Learning Engineer (MLA-C01) EXAM NOTES - David Galera, July 2025
 
-- [Amazon Managed Service for Apache Flink](#amazon-managed-service-for-apache-flink)
-- [Amazon Managed Workflows for Apache Airflow](#amazon-managed-workflows-for-apache-airflow)
-- [Athena](#athena)
-- [Augmented AI](#augmented-ai)
-- [Bedrock](#bedrock)
-- [Comprehend](#comprehend)
-- [Data Formats](#data-formats)
-- [EMR](#emr)
-- [Glue](#glue)
-- [Glue DataBrew](#glue-databrew)
-- [Kendra](#kendra)
-- [Kinesis Data Analytics](#kinesis-data-analytics)
-- [LakeFormation](#lakeformation)
-- [Macie](#macie)
-- [QuickSight](#quicksight)
-- [Redshift](#redshift)
-- [SageMaker](#sagemaker)
-- [SageMaker Automatic Model Tuning (AMT)](#sagemaker-automatic-model-tuning-amt)
-- [SageMaker Autopilot](#sagemaker-autopilot)
-- [SageMaker Canvas](#sagemaker-canvas)
-- [SageMaker Clarify](#sagemaker-clarify)
-- [SageMaker DataWrangler](#sagemaker-datawrangler)
-- [SageMaker Debugger](#sagemaker-debugger)
-- [SageMaker Deployments](#sagemaker-deployments)
-- [SageMaker Endpoints](#sagemaker-endpoints)
-- [SageMaker Experiments](#sagemaker-experiments)
-- [SageMaker Feature store](#sagemaker-feature-store)
-- [SageMaker File Modes](#sagemaker-file-modes)
-- [SageMaker Ground Truth](#sagemaker-ground-truth)
-- [SageMaker Jumpstart](#sagemaker-jumpstart)
-- [SageMaker Models](#sagemaker-models)
-- [SageMaker Model Monitor](#sagemaker-model-monitor)
-- [SageMaker Model Registry](#sagemaker-model-registry)
-- [SageMaker NEO](#sagemaker-neo)
-- [SageMaker Pipelines](#sagemaker-pipelines)
-- [SageMaker Processing Jobs](#sagemaker-processing-jobs)
-- [SageMaker Script Mode](#sagemaker-script-mode)
-- [SageMaker Studio](#sagemaker-studio)
-- [SageMaker TensorBoard](#sagemaker-tensorboard)
-- [Step functions](#step-functions)
-- [Model Interpretability](#model-interpretability)
-- [Model training](#model-training)
-- [Extra](#extra)
+- [AWS Certified Machine Learning Engineer (MLA-C01) EXAM NOTES - David Galera, July 2025](#aws-certified-machine-learning-engineer-mla-c01-exam-notes---david-galera-july-2025)
+  - [Amazon Lookout](#amazon-lookout)
+  - [Amazon Managed Service for Apache Flink](#amazon-managed-service-for-apache-flink)
+  - [Amazon Managed Workflows for Apache Airflow](#amazon-managed-workflows-for-apache-airflow)
+  - [Amazon Q Business](#amazon-q-business)
+  - [Athena](#athena)
+  - [Augmented AI](#augmented-ai)
+  - [Bedrock](#bedrock)
+  - [Comprehend](#comprehend)
+  - [Data Formats](#data-formats)
+  - [EMR](#emr)
+  - [Glue](#glue)
+  - [Glue DataBrew](#glue-databrew)
+  - [Kendra](#kendra)
+  - [Kinesis Data Analytics](#kinesis-data-analytics)
+  - [LakeFormation](#lakeformation)
+  - [Macie](#macie)
+  - [QuickSight](#quicksight)
+  - [Redshift](#redshift)
+  - [SageMaker](#sagemaker)
+  - [SageMaker Automatic Model Tuning (AMT)](#sagemaker-automatic-model-tuning-amt)
+  - [SageMaker Autopilot](#sagemaker-autopilot)
+  - [SageMaker Canvas](#sagemaker-canvas)
+  - [SageMaker Clarify](#sagemaker-clarify)
+  - [SageMaker DataWrangler](#sagemaker-datawrangler)
+  - [SageMaker Debugger](#sagemaker-debugger)
+  - [SageMaker Deployments](#sagemaker-deployments)
+  - [SageMaker Endpoints](#sagemaker-endpoints)
+  - [SageMaker Experiments](#sagemaker-experiments)
+  - [SageMaker Feature store](#sagemaker-feature-store)
+  - [SageMaker File Modes](#sagemaker-file-modes)
+  - [SageMaker Ground Truth](#sagemaker-ground-truth)
+  - [SageMaker Jumpstart](#sagemaker-jumpstart)
+  - [SageMaker Models](#sagemaker-models)
+  - [SageMaker Model Monitor](#sagemaker-model-monitor)
+  - [SageMaker Model Registry](#sagemaker-model-registry)
+  - [SageMaker NEO](#sagemaker-neo)
+  - [SageMaker Pipelines](#sagemaker-pipelines)
+  - [SageMaker Processing Jobs](#sagemaker-processing-jobs)
+  - [SageMaker Script Mode](#sagemaker-script-mode)
+  - [SageMaker Studio](#sagemaker-studio)
+  - [SageMaker TensorBoard](#sagemaker-tensorboard)
+  - [Step functions](#step-functions)
+  - [Model Interpretability](#model-interpretability)
+  - [Model training](#model-training)
+  - [Extra](#extra)
+
+## Amazon Lookout
+
+Anomaly detection: predictive maintenance, quality inspection vision
 
 ## Amazon Managed Service for Apache Flink
 
-Amazon Managed Service for Apache Flink is a fully managed service that efficiently processes real-time data streams with low latency. It allows for seamless integration with Kinesis Data Streams and supports minute-by-minute aggregation with minimal operational effort.
+Amazon Managed Service for Apache Flink is a fully managed service that efficiently processes real-time data streams with low latency. It allows for seamless integration with Kinesis Data Streams and supports minute-by-minute aggregation with minimal operational effort. This service integrates with other AWS services like **Amazon SageMaker, Amazon S3, and Amazon Data Firehose**, enabling you to build end-to-end real-time data processing pipelines.
 
 !["Flink"](flink.jpg)
 
@@ -54,20 +61,44 @@ Amazon Managed Service for Apache Flink is a fully managed service that efficien
 
 It requires significant setup and maintenance, and while it can integrate with AWS services, it does not provide the seamless, built-in integration with SageMaker that SageMaker Pipelines offers.
 
+## Amazon Q Business
+
+Authentication managed by **IAM Identity Center**
+
+**Admin controls**: similar to Guardrails
+
+Amazon Business supports **plugins**, which allow seamless **integration with third-party applications** like ServiceNow, Jira, Zendesk e.g. Create a Jira issue. You can create **custom plugins** to call APIs
+
+**Data Connectors**: are used to connect data sources for read data (fully managed RAG): S3, RDS, Aurora, MS 365, Slack, Sharepoint, Salesforce, Gmail...
+
 ## Athena
 
-- Athena can **write the filtered results back to S3 in optimized formats like Parquet or ORC**, which significantly improves query performance and reduces costs.
+- Athena can **write the filtered results back to S3 in optimized formats like Parquet or ORC**, which significantly improves query performance and reduces costs. Create Table As Select (CTAS), can export tables to external locations e.g. other s3 buckets
 - Athena requires no infrastructure management, making it the most efficient and low-operational solution for querying S3-based CSV data.
+- Support for ACID transactions, `table_type = 'ICEBERG'` in CREATE TABLE command, allows concurrent row-level modifications. Allow for time travel ops (recover deleted data).
+- Athena ACID is equivalent to Lakeformation governed tables + Athena
+- If ACID used over time, run OPTIMIZE TABLE USING BIN_PACK to recover performance
+- Athena has fine-graned access to Glue Data Catalog
+- MSCK REPAIR TABLE to add partitions.
 
 ## Augmented AI
 
-Amazon Augmented AI (A2I) is a service that helps implement human review workflows for machine learning predictions. It integrates human judgment into ML workflows, allowing for reviews and corrections of model predictions, which is critical for applications requiring high accuracy and accountability.
+Amazon Augmented AI (A2I) is a service that helps implement **human review workflows for machine learning predictions**. It integrates human judgment into ML workflows, allowing for reviews and corrections of model predictions, which is critical for applications requiring high accuracy and accountability.
+
+- Employees
+- 500k contractors from AWS
+- AWS Mechanical Turk
 
 ## Bedrock
 
+**Provisioned throughput**: Amazon Bedrock offers a provisioned throughput mode, which is useful for large, steady workloads, ensuring reliable performance by allowing users to purchase throughput units for token processing.
+
+Bedrock operates in a **serverless environment**, which handles automatic scaling and infrastructure management. Additionally, it ensures data encryption both at rest and in transit.
 !["Bedrock"](bedrock.jpg)
 
 ## Comprehend
+
+Provides **Entity Recognition** and **Sentiment Analysis**
 
 Amazon Comprehend provides the ability to **locate and redact PII entities in English or Spanish text documents**. You can easily process and anonymize personal information.
 
@@ -78,6 +109,7 @@ Amazon Comprehend provides the ability to **locate and redact PII entities in En
 - `Apache ORC` (Optimized Row Columnar) is another columnar storage format that is designed for high performance and efficient storage of data. While it can be a good choice for analytical processing, `Apache Parquet` is generally preferred for its wider adoption, better performance, and support for **schema evolution in semi-structured data**.
 - `Apache Parquet` is a columnar storage format optimized for analytics **well-suited for storing semi-structured data with schema evolution requirements**. It supports efficient compression, encoding, and is suitable for both batch and interactive analytics on semi-structured data. It also supports schema evolution, which allows modifications to the data structure over time. It provides efficient storage, high performance for batch and interactive analytics, and supports complex nested data structures. This makes it a suitable choice for analytical processing needs.
 - `CSV`, not suited for semi-structured data with schema evolution
+- `Avro RecordIO` is a row-based storage format that is efficient for serialization but not ideal for storage and processing of large datasets like Parquet. Avro does support schema evolution, but its row-based nature makes it less efficient for large-scale analytical workloads compared to Parquet.
 
 ## EMR
 
@@ -95,6 +127,8 @@ AWS Glue provides serverless, scalable ETL capabilities to preprocess and transf
 
 You can use AWS Glue ETL jobs to define and perform transformations on your data. You can create **Python** or **Scala** scripts to perform the necessary transformations. Then, AWS Glue will manage the underlying infrastructure to run the job.
 
+AWS Glue jobs are charged based on the Data Processing Units (DPUs) consumed, Glue does **not support automatic scaling of DPUs**; you need to manually configure the required DPU settings.
+
 AWS Glue **does not provide ready-to-use Docker images** for popular ML frameworks such as TensorFlow and PyTorch.
 
 **AWS Glue Data Quality** is designed to evaluate and enforce data quality rules on datasets processed through AWS Glue ETL jobs.
@@ -107,9 +141,11 @@ AWS Glue **does not provide ready-to-use Docker images** for popular ML framewor
 
 Configure **incremental data loads in Glue ETL jobs** to ensure only newly added data is processed, thus minimizing compute resources and processing time.
 
+`AWS Glue Data Catalog` stores the schema and metadata, making the data queryable through services like **AWS Athena, Amazon Redshift, and Amazon QuickSight**.
+
 ## Glue DataBrew
 
-Visual data preparation tool that can be used to clean and normalize data, handle missing values, and remove outliers efficiently. It provides a user-friendly interface for data preparation tasks without the need for complex coding.
+Visual data preparation tool that can be used to clean and normalize data, handle missing values, and remove outliers efficiently. It provides a user-friendly interface for data preparation tasks without the need for complex coding. These transformations can be saved as a **recipe**, allowing easy reuse and automation for future jobs.
 
 !["Glue DataBrew"](databrew.jpg)
 
@@ -154,8 +190,7 @@ You can use QuickSight to make predictions for a column in a model dataset.
 ## SageMaker
 
 !["Multi-model"](multimodel.jpg)
-
-Importing models:
+Amazon SageMaker’s multi-model endpoint allows you to deploy multiple models on a **shared serving container**. This can significantly reduce costs by sharing resources among models, but it may introduce slight **increases in latency** due to the need to load the correct model into memory.
 
 - Bring custom **R models** to SageMaker: "bring your own container" option, just write the Dockerfile.
 - **SageMaker SDK** includes functions that you can use to **onboard existing Python models** that are written in supported frameworks.
@@ -177,18 +212,39 @@ Bring Your Own Container: `Script mode` enables you to write custom training and
 
 To initiate automatic tuning in SageMaker, the engineer must provide the **dataset**, the **algorithm** to be used, and the **range of hyperparameters** to explore. A performance metric, such as accuracy or mean squared error, must be specified to evaluate the quality of different hyperparameter combinations.
 
-Searches for the most suitable version of a model by running training jobs based on the algorithm and objective criteria. You can use a **warm start tuning job to use the results from previous training jobs as a starting point**. SageMaker can use **early stopping** to compare the current objective metric against the median of the running average of the objective metric.
+Searches for the most suitable version of a model by running training jobs based on the algorithm and objective criteria. You can use a **warm start tuning job to use the results from previous training jobs as a starting point**. SageMaker can use **early stopping** (AUTO setting) to compare the current objective metric against the median of the running average of the objective metric.
 
 - `IDENTICAL_DATA_AND_ALGORITHM` setting assumes the same input data and training image as the previous tuning jobs
 - `TRANSFER_LEARNING` setting can use different input data, hyperparameter ranges, and other hyperparameter tuning job parameters than the parent tuning jobs.
 
 ## SageMaker Autopilot
 
-Amazon SageMaker Autopilot offers **low-code** machine learning capabilities by automating the process of building, training, and tuning models while providing transparency into the model-building steps. Users provide a dataset and define the target variable, and Autopilot automatically preprocesses data, selects algorithms, and optimizes hyperparameters
+Amazon SageMaker Autopilot offers **low-code** machine learning capabilities by automating the process of building, training, and tuning models while providing transparency into the model-building steps. Users **provide a dataset and define the target variable**, and Autopilot automatically preprocesses data, selects algorithms, and optimizes hyperparameters
 
-It provides end-to-end automation for machine learning workflows, including data preprocessing, feature engineering, model training, and evaluation.
+It provides end-to-end automation for machine learning workflows, including data preprocessing, algorithm selection, feature engineering, model training, and evaluation.
 
+Workflow:
+
+- Load data from **s3**, CSV or Parquet
+- Select target column
+- Automatic model creation
+- Model notebook is available for visibility & control
+- Model leaderboard: Ranked list of recommended models, you can pick one
+- Deploy & Monitor the model, refine via notebook if needed.
+
+Features:
+
+- Can add human guidance
+- Access Via SageMaker Studio or AWS SDK
+- Problem class: Binary classification, multiclass classification, regression
+- Algorithm types: Linear Learner, XGBoost, Deep Learning, Ensembles
 It evaluates multiple candidate models to determine their predictive power with minimal manual effort.
+
+Training modes:
+
+- `HPO (Hyperparameter optimization)`: Uses Linear Learner, XGBoost or DL, runs **up to 100 trials** for hyperparamer tunning, **if dataset < 100 MB uses Bayesian Optimization, else Multi-fidelity optimization**
+- `Ensemble`: Trains several base models using AutoGluon Library, wider range of models, including tree-based and DL. Runs 10 trials with different models and hyperparams, models are combined in an ensemble
+- Auto: `HPO` **if dataset > 100 MB** or it can not infer the dataset size (bucket hidden in VPC, contains +1000 items etc), else `Ensemble`
 
 It is fully managed, making it ideal for teams looking to quickly assess a dataset's suitability for predictive modeling.
 
@@ -231,11 +287,11 @@ Suited for cleaning, visualizing, and transforming datasets before training mach
 - Easily exports transformed datasets to SageMaker for training.
 - Provides a **data quality and insights report** that automatically verifies data quality (such as missing values, duplicate rows, and data types) and helps detect anomalies (such as outliers, class imbalance, and data leakage) in your data.
 - Offers over 300 prebuilt PySpark transformations and a natural language interface to prepare tabular, timeseries, text and image data without coding
-- **Quick Model** feature in Data Wrangler allows users to train a simple model quickly and visualize the **feature importance**
+- The **Quick Model** feature in SageMaker Data Wrangler automatically splits the dataset, trains a simple model, and provides **feature importance scores** to evaluate how much each feature contributes to the target variable.
 
 ## SageMaker Debugger
 
-Amazon SageMaker Debugger provides a low-effort, integrated solution to address common training issues like **vanishing gradients, GPU underutilization, and overfitting**. By enabling built-in rules, SageMaker Debugger can monitor training jobs in real time, detect issues, and automatically trigger actions such as stopping training or generating alerts. These rules offer deep insights and actionable metrics while integrating seamlessly with SageMaker Studio for visualization. Example **rules**:
+Amazon SageMaker Debugger provides a low-effort, integrated solution to address common training issues like **vanishing gradients, GPU underutilization, and overfitting**. By enabling built-in rules, SageMaker Debugger can monitor training jobs in **real time**, detect issues, and automatically trigger actions such as stopping training or generating alerts via Cloudwatch. These rules offer deep insights and actionable metrics while integrating seamlessly with **SageMaker Studio debugger dashboards** for visualization or the more recent Sagemaker debugger insights dashboard. Example **rules**:
 
 - `VanishingGradient` - This rule detects if the gradients in a trial become extremely small or drop to a zero magnitude. If the mean of the absolute values of the gradients drops below a specified threshold, the rule returns True.
 - `Overfit` - This rule detects if your model is being overfit to the training data by comparing the validation and training losses. This rule can be applied either to one of the supported deep learning frameworks (TensorFlow, MXNet, and PyTorch) or to the XGBoost algorithm.
@@ -243,18 +299,21 @@ Amazon SageMaker Debugger provides a low-effort, integrated solution to address 
 
 Helps in identifying training issues such as vanishing gradients, exploding gradients, and tensor saturation. Relevant for debugging model training processes.
 
+To track system resources, **SageMaker Profiler** requires the **start and stop profiling commands to be added to the training script**, which collects metrics such as CPU, GPU, and memory usage.
+
 ## SageMaker Deployments
 
 !["SageMaker deployments"](deployments.jpg)
 
 ## SageMaker Endpoints
 
+SageMaker endpoints cannot host multiple containers behind a single endpoint without a Multi-Model Endpoint setup.
 !["SageMaker endpoints"](endpoints.jpg)
 !["SageMaker endpoints 2"](endpoints2.jpg)
 
 - Asynchronous: This option is ideal for requests with large **payload sizes (up to 1GB)**, long **processing times (up to one hour)**, and **near real-time latency** requirements. Asynchronous Inference enables you to save on costs by **autoscaling the instance count to zero when there are no requests to process**, so you only pay when your endpoint is processing requests. Designed for use cases where requests can be processed in batches and are not time-sensitive.
 - Real-time: Receive responses for each request in real time, low latency or high throughput, can process responses only for **up to 60 seconds, payload size limit of 6 MB**. Real-time endpoints have a **continuous cost**, even when idle. Requires provisioning and managing infrastructure to handle traffic spikes. You can enable **data capture** and integrate it with Clarify to perform bias detection. The `min number of copies` specifies the minimum number of model copies that you want to have hosted on the endpoint at any given time.
-- Serverless: Ideal for workloads which have idle periods between traffic spurts and can tolerate **cold starts**. Receive responses for each request in **real time**. Scale independently. **It can support payload sizes up to 4 MB and processing times up to 60 seconds**. Setting `MaxConcurrency` to 1 ensures the endpoint can handle one request at a time. **Memory limit 6 GB and max 200 concurrent requests**. You **cannot configure a VPC** for the endpoint in this solution. Ideal for workloads that have idle periods between traffic spikes and can tolerate cold starts. **Provisioned concurrency** allows you to deploy models on serverless endpoints with predictable performance, and high scalability by keeping your endpoints warm, useful for predictable workloads.
+- Serverless: Ideal for workloads which have idle periods between traffic spurts and can tolerate **cold starts**. Receive responses for each request in **real time**. Scale independently. **It can support payload sizes up to 4 MB and processing times up to 60 seconds**. Setting `MaxConcurrency` to 1 ensures the endpoint can handle one request at a time. **Memory limit 6 GB and max 200 concurrent requests**. You **cannot configure a VPC** for the endpoint in this solution. **Provisioned concurrency** allows you to deploy models on serverless endpoints with predictable performance, and high scalability by keeping your endpoints warm, useful for predictable workloads.
 !["Serverless"](serverless.jpg)
 - Batch transform: Batch transform is a serverless, scalable, and cost-effective solution for **offline** predictions on large batches of data that is available upfront and you don’t need a persistent endpoint.
 
@@ -272,6 +331,8 @@ Organize work into Experiments, which group multiple Trials (individual training
 
 A **trial** in SageMaker Experiments represents a single run of a training job with a specific configuration, and **trial components** capture the **stages** within that trial, such as data preprocessing, model training, and evaluation.
 
+`Trackers` in SageMaker Experiments automatically log metadata for each trial, including hyperparameters, datasets, and changes to the code. This ensures reproducibility and traceability for every experiment.
+
 ## SageMaker Feature store
 
 A **feature group** is a logical grouping of features, which is the foundation of the SageMaker Feature Store. It defines the schema of the data, such as feature names, types, and metadata. Creating a feature group is the **first step to structure and organize features**.
@@ -281,7 +342,7 @@ A **feature group** is a logical grouping of features, which is the foundation o
 !["File modes"](Inputs.jpg)
 !["File modes 2"](file-modes.jpg)
 !["File modes 3"](file-modes3.jpg)
-If your dataset is too large for file mode, has many small files that you can't serialize easily, or uses a random read access pattern, FSx for Lustre is a good option to consider. Its file system scales to hundreds of gigabytes per second (GB/s) of throughput and millions of IOPS, which is ideal when you have many small files.
+If your dataset is too large for file mode, has many small files that you can't serialize easily, or uses a random read access pattern, FSx for Lustre is a good option to consider. Its file system scales to hundreds of gigabytes per second (GB/s) of throughput and millions of IOPS, which is ideal when you have many small files. It is **optimized for both sequential and random access** workloads.
 
 **FSx is not the optimal solution to provide low-latency access to many large video files**, you should rather use the Fast File mode for the video files in the relevant Amazon S3 bucket folder.
 
@@ -291,14 +352,18 @@ You can then apply Fast File mode for the video files in the relevant Amazon S3 
 !["FSx Lustre"](lustre.jpg)
 
 - **File mode** downloads training data to a local directory in a Docker container.
-- **Pipe mode** streams data directly to the training algorithm.
-- **Fast file mode**: **Best suited for workloads with many small files. Only available for S3 data**. Provides the benefits of both file mode and pipe mode. For example, fast file mode gives SageMaker the flexibility to access entire files in the same way as file mode. Additionally, fast file mode provides the better performance of pipe mode.
+- **Pipe mode** streams data directly to the training algorithm. Mainly replaced by Fast file mode.
+- **Fast file mode**: **Not compatible with FSx for Lustre. Best suited for workloads with many small files. Only available for S3 data. Can do random access but is better suited for sequential access**. Provides the benefits of both file mode and pipe mode. For example, fast file mode gives SageMaker the flexibility to access entire files in the same way as file mode. Additionally, fast file mode provides the better performance of pipe mode.
+- **Amazon S3 Express One Zone**: High performance, works with File, Pipe and Fast-File modes.
+- Lustre and NFS require VPC.
 
 **Fast file mode** gives the model the ability to begin training before the entire dataset has finished loading. Therefore, fast file mode **decreases the startup time**. As the training progresses, **the entire dataset will load**. Therefore, you must **have enough space** within the storage capacity of the training instance.
 
 ## SageMaker Ground Truth
 
 Amazon SageMaker Ground Truth is used for building highly accurate training datasets for machine learning quickly. It does involve human annotators for labeling data, but it is not specifically designed for monitoring or human review of model predictions in production
+
+SageMaker Ground Truth offers **active learning**, which automates the labeling of simpler cases based on previously labeled data while allowing human labelers to handle more complex instances. This reduces the cost of labeling while maintaining accuracy.
 
 ## SageMaker Jumpstart
 
@@ -311,7 +376,7 @@ You can quickly **deploy a pre-trained model and fine-tune it using your custom 
 - **Random Cut Forest (RCF)**: unsupervised algorithm for detecting anomalous data points within a data set.
 - **XGBoost** has built-in techniques for handling class imbalance, such as `scale_pos_weight`.
 - **Linear Learner** algorithm can handle classification tasks, it is specifically designed to handle class imbalance by adjusting class weights. However, it may not be as effective in capturing complex patterns in the data as more sophisticated algorithms like XGBoost.
-- **BlazingText** is designed for natural language processing tasks like text classification and word embedding
+- **BlazingText** is designed for natural language processing tasks like text classification and word embedding. Important: Its intended to be used for sentences, not entire documents.
 
 ## SageMaker Model Monitor
 
@@ -348,6 +413,7 @@ You can use SageMaker Model Registry to create a catalog of models for productio
 
 - **collections**: allow users to logically organize model groups into high-level categories without disrupting the integrity of the underlying model groups or artifacts. Better model management and discoverability at scale.
 - Amazon SageMaker Model Registry also integrates with **AWS Resource Access Manager (AWS RAM)**, making it easier to securely share and discover machine learning (ML) models across your AWS accounts
+- **model approval status** allows you to control which models are approved for deployment.
 
 ## SageMaker NEO
 
@@ -394,7 +460,7 @@ The integration between **Amazon EMR** and **Amazon SageMaker Studio** provides 
 
 ## SageMaker TensorBoard
 
-Capability of SageMaker that you can use to visualize and analyze intermediate tensors during model training. SageMaker with TensorBoard provides full visibility into the model training process, including debugging and model optimization. You can analyze the intermediate activations and gradients during training
+Toolkit for Tensorflow and Pytorch that you can use to visualize and analyze intermediate tensors during model training, it has integration with SageMaker via console. SageMaker with TensorBoard provides full visibility into the model training process, including debugging and model optimization. You can analyze the intermediate activations and gradients during training. **Requires some modifications to the training script**.
 
 ## Step functions
 
@@ -402,9 +468,14 @@ It is more general-purpose and **lacks some of the ML-specific features**, such 
 
 ## Model Interpretability
 
+Metrics available in **SageMaker Data Wrangler**:
+
 - Partial dependence plots (PDP): Identify the difference in the predicted outcome as an input feature changes.
 - Shapley values: **Feature attribution**. Quantify the contribution of each feature in a prediction.
 - Difference in proportions of labels (DPL): DPL is a metric that you can use to **detect pre-training bias**. You can use DPL to avoid ML models that could potentially be biased or discriminatory.
+- Total Variation Distance (TVD): TVD quantifies the maximum divergence in outcome distributions between different demographic groups. e.g. Evaluating the maximum disparity in results among different income levels
+- Kullback-Leibler Divergence (KL): This metric primarily measures the divergence between two probability distributions often used to **compare the distribution of outcomes across different groups**.
+!["metrics"](bias-metrics.png)
 
 ## Model training
 
@@ -412,6 +483,9 @@ It is more general-purpose and **lacks some of the ML-specific features**, such 
 !["Metrics"](metrics.jpg)
 !["Metrics2"](metrics2.jpg)
 !["Distributed training"](distributed-training.jpg)
+SageMaker Distributed Data Parallelism Library: **AllReduce collective** Specify backend (`smdpp` or `torch.distributed.init_process_group`) in your training script, then specify `distribution={"smdistributed":{"dataparallel":{"enabled":True}}}` in your PyTorch estimator. Similar to MapReduce but for computing gradients, gradient descent
+**AllGather collective** manages communication between nodes. **Not compatible with SageMaker training compiler**.
+
 In **bagging**, data scientists improve the accuracy of weak learners by training several of them at once on multiple datasets. In contrast, boosting trains weak learners one after another.
 
 **Stacking** involves training a meta-model on the predictions of several base models. This approach can significantly improve performance because the meta-model learns to leverage the strengths of each base model while compensating for their weaknesses.
@@ -426,12 +500,22 @@ In **bagging**, data scientists improve the accuracy of weak learners by trainin
 
 By allocating fewer resources to underperforming configurations, Hyperband reduces the total computation time compared to exhaustive methods like grid search.
 
+**Adding more training data** helps the model learn from a broader range of examples, **reducing both underfitting and overfitting risks**.
+
+For training massive AI models with billions of parameters use **SageMaker training compiler**, integrated with AWS deep learning containers (DLCs) which are pre-made docker images for: Tensorflow, PyTorch, MXNet. Can accelerate training up to 50%. Not compatible with distributed model training.
+
+You can use **warm pools** to keep the provisioned infrastructure between training rounds, use `KeepAlivePeriodInSeconds` in training config. Requires a service limit increase request.
+
+To use **checkpointing**: Specify `checkpoint_s3_uri` and `checkpoint_local_path` in the SageMaker estimator.
+
 ## Extra
 
+- Combining weakness and strenghts of several models: Stacking, because the meta-model learns to leverage the strengths of each base model while compensating for their weaknesses.
 - Lexical search: Compares the words in a search query to the words in documents, matching word for word
 - XGBoost `pos_weight`: helps address any bias in the dataset
 - ROC-AUC: Useful metric for evaluating model performance across different thresholds
 - F1 Score is the harmonic mean of `precision` and `recall`
+- **False Positive Rate** directly measures the proportion of genuine (non-fraudulent) transactions that are incorrectly classified as fraudulent by the model. A low FPR indicates that the model is **minimizing the number of false positives**
 - Lowering learning rate -> **reduces the variance in the gradients**, which prevents oscillations in the training accuracy
 - Vanishing gradients: model-specific issue related to learning dynamics -> adjust learning rate
 - Dropout: Prevents neurons adapting to much to specific features, forcing the network to learn more robust features -> Stabilizing the training process
@@ -450,6 +534,6 @@ By allocating fewer resources to underperforming configurations, Hyperband reduc
 - `AWS::SageMaker::EndpointConfig` resource specifies how an endpoint is configured (e.g., instance type and count)
 - **Kinesis Data Firehose** provides configurable buffer intervals for data delivery to destinations. You can create a buffering hint by setting a value of zero for `IntervalInSeconds` parameter
 - **BIAS detection**: Check whether the model gives different demographic groups similar true positive rates, making it a key measure for detecting bias and ensuring fairness in sensitive applications like loan approvals. **Comparing feature distributions across demographic groups does not directly address potential bias in model predictions**.
-- Bias/Variance tradeoff: The bias versus variance trade-off in machine learning is about finding a balance between bias (error due to overly simplistic assumptions in the model, leading to underfitting) and variance (error due to the model being too sensitive to small fluctuations in the training data, leading to overfitting). The goal is to achieve a model that generalizes well to new data.
+- **Bias/Variance tradeoff**: The bias versus variance trade-off in machine learning is about finding a balance between bias (error due to overly simplistic assumptions in the model, leading to underfitting) and variance (error due to the model being too sensitive to small fluctuations in the training data, leading to overfitting). The goal is to achieve a model that generalizes well to new data.
 - **SageMaker’s Model Parallelism Library** simplifies the process by automatically splitting the model across multiple GPUs or machines based on the architecture and memory constraints, making it easy to handle large models without manual intervention.
 - **Hyperband** dynamically allocates more resources to promising hyperparameter configurations while early-stopping underperforming ones, balancing exploration and exploitation of different configurations.
